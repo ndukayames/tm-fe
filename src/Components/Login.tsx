@@ -4,29 +4,32 @@ import { validatePassword } from "../ReuseableFunctions";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
-
 interface FormDetails {
   email: string;
   password: string;
 }
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [validationMessage, setValidationMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [validationMessage, setValidationMessage] = useState<string | null>(
+    null
+  );
 
   const [formDetails, setFormDetails] = useState<FormDetails>({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    if (name === 'password') {
+    if (name === "password") {
       const message = validatePassword(value);
       setValidationMessage(message);
     }
@@ -34,7 +37,11 @@ const Login = () => {
   return (
     <div className="flex flex-col">
       <div className="ml-auto">
-        <Button variant="transparent" children='Create Account' onClick={() => navigate('/')} />
+        <Button
+          variant="transparent"
+          children="Create Account"
+          onClick={() => navigate("/")}
+        />
       </div>
       <form className="w-full lg:max-w-[450px] mt-[50px]">
         {/* form header */}
@@ -51,7 +58,8 @@ const Login = () => {
             placeholder="Enter a valid email"
             infoText="Example: man@yahoo.com"
             id="email"
-            name="email" />
+            name="email"
+          />
 
           <CustomInput
             type="password"
@@ -65,11 +73,17 @@ const Login = () => {
             validationMessage={validationMessage}
           />
 
-          <div><Button variant="filled" onClick={() => alert('Create account')} children='Log In' /></div>
+          <div>
+            <Button
+              variant="filled"
+              onClick={() => navigate("/dashboard")}
+              children="Log In"
+            />
+          </div>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
